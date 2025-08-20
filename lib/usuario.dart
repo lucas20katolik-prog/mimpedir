@@ -1,12 +1,12 @@
 class Usuario {
-  int? _codigo;
+  int? _cd_user;
   String? _nome;
   String? _login;
   String? _senha;
 
-  Usuario({String? nome, int? codigo, String? senha, String? login}) {
+  Usuario({String? nome, int? cd_user, String? senha, String? login}) {
     _senha = senha;
-    _codigo = codigo;
+    _cd_user = cd_user;
     _nome = nome;
     _login = login;
   }
@@ -18,7 +18,7 @@ class Usuario {
 
   String? get nome => _nome;
 
-  int? get codigo => _codigo;
+  int? get cd_user => _cd_user;
 
   String? get senha => _senha;
 
@@ -29,6 +29,6 @@ class Usuario {
 
   set nome (String? nome) => _nome = nome;
   set senha (String? senha) => _senha = senha;
-  set codigo (int? codigo) => _codigo = codigo;
+  set codigo (int? codigo) => _cd_user = cd_user;
 
 }

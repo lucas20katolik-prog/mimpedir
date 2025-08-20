@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'usuario.dart';
+import 'tipo.dart';
+import 'restaurante.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -11,10 +13,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Usuario u = Usuario(
-      codigo: 1,
+      cd_user: 1,
       nome: "Lucas",
       login: "lucas20katolik",
       senha: "senha"
+    );
+
+    Tipo t = Tipo(
+      codigo: 11,
+      nome: "Italiana"
+    );
+
+    Restaurante r = Restaurante(
+    nome: "A Moda Da Casa",
+    cd_rest: 111,
+    latitude: 38.49,
+    longitude: 52.35,
+      cd_user: u,
+      cd_tipo: t
     );
 
 
@@ -27,9 +43,18 @@ class MyApp extends StatelessWidget {
           child: Column(
             children: [
             Text ("Nome: ${u.nome}"),
-              Text("Código: ${u.codigo}"),
+              Text("Código: ${u.cd_user}"),
               Text("Login: ${u.login}"),
-              Text("Senha: ${u.senha}")
+              Text("Senha: ${u.senha}"),
+
+              Text ("Código do restaurante: ${r.cd_rest}"),
+              Text ("Nome do restaurante: ${r.nome}"),
+              Text ("Latitude ${r.latitude}"),
+              Text ("Longitude ${r.longitude}"),
+              Text ("Proprietário: ${u.nome}"),
+              Text ("Tipo de culinária: ${t.nome}")
+
+
 
             ],
           ),
