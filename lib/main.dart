@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mimpedir/tela_login.dart';
 import 'usuario.dart';
-import 'tipo.dart';
-import 'restaurante.dart';
+import 'tela_home.dart';
+
 void main() {
   runApp(const MyApp());
 }
