@@ -13,12 +13,12 @@ EditRestaurante({super.key});
         children: [
           SizedBox(),
           Text("Edite aqui as informações do seu restaurante: "),
-SizedBox(height: 40),
+
+SizedBox(height:30),
           Text("Código do restaurante"),
 DropdownButtonFormField(
     items:[
       DropdownMenuItem(value: "cd",child: Text("cd")),
-
     ],
  onChanged: (value){}),
           SizedBox(height:25),
@@ -27,7 +27,7 @@ DropdownButtonFormField(
           ),
           SizedBox(height:25),
           TextFormField(
-            decoration: const InputDecoration(hintText: 'Nome do Restaurante'),
+            decoration: const InputDecoration(hintText: 'Tipo'),
           ),
           SizedBox(height:25),
           TextFormField(
@@ -37,8 +37,15 @@ DropdownButtonFormField(
           TextFormField(
             decoration: const InputDecoration(hintText: 'Latitude'),
           ),
+          SizedBox (height: 100),
+        ElevatedButton(onPressed: (){}, child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.save),
+            Text("Salvar alterações")
+          ],
+        ))
         ],
-
       ),
     )
   );

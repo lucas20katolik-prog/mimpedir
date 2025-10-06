@@ -38,15 +38,5 @@ double? longitude, Usuario? cd_user, Tipo? cd_tipo}){
   Tipo? get cd_tipo => _cd_tipo;
   set cd_tipo (Tipo? cd_tipo) => _cd_tipo = cd_tipo;
 
-
-
-
-
-
-
-
-
-
-
 }
 
