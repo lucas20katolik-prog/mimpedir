@@ -1,8 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:mimpedir/tipo.dart';
+import 'package:mimpedir/banco/tipo_dao.dart';
 
-class TelaCadRestaurante extends StatelessWidget{
-  TelaCadRestaurante({super.key});
+class TelaCadRestaurante extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return TelaCadRestauranteState();
+  }
+}
 
+class TelaCadRestauranteState extends State<TelaCadRestaurante>{
+
+  final TextEditingController nomeController = TextEditingController();
+  final TextEditingController latitudeController = TextEditingController();
+  final TextEditingController longitudeController = TextEditingController();
+  String? culinariaSelecionada;
+  List<Tipo> tiposCulinaria =[];
+  int? tipoCulinaria;
+
+
+  void initState(){
+    super.initState();
+    carregarTipos();
+  }
+
+
+  Future<void> carregarTipos() async{
+    final lista = await TipoDAO.listarTipos();
+    setState(() {
+      tiposCulinaria = lista;
+    });
+  }
   @override
   Widget build (BuildContext context){
     return Scaffold(
@@ -14,25 +42,40 @@ class TelaCadRestaurante extends StatelessWidget{
           Text("Informações do Restaurante: "),
           SizedBox(height: 40),
           Text("Tipo de comida"),
-          DropdownButtonFormField(
-            items: [
-              DropdownMenuItem(value: "Japonesa", child: Text("Japonesa")),
-              DropdownMenuItem(value: "Italiana", child: Text("Italiana")),
-              DropdownMenuItem(value: "Brasileira", child: Text("Brasileira")),
-              DropdownMenuItem(value: "Árabe", child: Text("Árabe")),
-            ],
-          onChanged: (value){}),
+
+          DropdownButtonFormField<String>(
+              value: culinariaSelecionada,
+              items: tiposCulinaria.map((tipo){
+                return DropdownMenuItem <String>(
+                  value: tipo.nome,
+                  child: Text ("${tipo.nome}")
+                );
+              }).toList(),
+              onChanged: (String? value) {
+                setState(() {
+                  culinariaSelecionada = value;
+                  Tipo tipoSelecionado = tiposCulinaria.firstWhere(
+                      (tipo) => tipo.nome == value,
+                  );
+                 tipoCulinaria = tipoSelecionado.codigo;
+                });
+              }
+              ),
+
           TextFormField(
             decoration: const InputDecoration(hintText: 'Nome  do Restaurante'),
             validator: (String? value){},
+            controller: nomeController,
           ),
           TextFormField(
             decoration: const InputDecoration(hintText: 'Latitude'),
             validator: (String? value){},
+            controller: latitudeController,
           ),
           TextFormField(
             decoration: const InputDecoration(hintText: 'Longitude'),
             validator: (String? value){},
+            controller: longitudeController,
           ),
           SizedBox(height: 50),
           ElevatedButton(onPressed: (){}, child: Row(
