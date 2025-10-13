@@ -34,7 +34,18 @@ class TelaHomeState extends State<TelaHome>{
   return Scaffold(
   appBar: AppBar(title: const Text ("Lista de restaurantes"),
   actions: [
-  IconButton(onPressed: (){}, icon: Icon(Icons.add))
+  IconButton(onPressed: (){
+    final t = Navigator.push(context,
+    MaterialPageRoute(builder:(context) => TelaCadRestaurante())
+    );
+
+    if(t == false || t == null){
+      setState(() {
+        carregarRestaurantes();
+      });
+    }
+
+  }, icon: Icon(Icons.add))
   ],),
   body: Padding(padding: const EdgeInsets.all(20),
   child: ListView.builder(

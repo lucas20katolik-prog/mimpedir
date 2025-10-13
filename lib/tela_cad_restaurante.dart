@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mimpedir/tipo.dart';
 import 'package:mimpedir/banco/tipo_dao.dart';
+import 'package:mimpedir/banco/restaurante_dao.dart';
 
 class TelaCadRestaurante extends StatefulWidget {
   @override
@@ -78,7 +79,24 @@ class TelaCadRestauranteState extends State<TelaCadRestaurante>{
             controller: longitudeController,
           ),
           SizedBox(height: 50),
-          ElevatedButton(onPressed: (){}, child: Row(
+          ElevatedButton(onPressed: () async{
+            final sucesso = await RestauranteDAO.cadastrarRestaurante(
+              nomeController.text, latitudeController.text, longitudeController.text, tipoCulinaria);
+            String msg = 'Erro: não cadastrado. Verifique os dados.';
+            Color corFundo = Colors.red;
+
+            if(sucesso > 0){
+              msg = '"${nomeController.text}" cadastrado com sucesso! ID $sucesso';
+              corFundo = Colors.green;
+            }
+
+            SnackBar(
+              content: Text(msg),
+              backgroundColor: corFundo,
+              duration: Duration(seconds: 5),
+            );
+
+          }, child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.save),

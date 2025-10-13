@@ -3,7 +3,7 @@ import 'package:mimpedir/usuario.dart';
 
 class UsuarioDao{
 
-  static Usuario usuarioLogado = Usuario();
+  static Usuario usuarioLogado= Usuario();
 
   static Future<bool> autenticar (String login, String senha) async{
     final db = await DatabaseHelper.getDataBase();
