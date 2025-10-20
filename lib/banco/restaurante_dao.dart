@@ -3,6 +3,14 @@ import 'package:mimpedir/banco/database_helper.dart';
 import 'package:mimpedir/banco/usuario_dao.dart';
 
 class RestauranteDAO{
+
+  static Future<void> excluir(Restaurante r) async{
+    final db = await DatabaseHelper.getDataBase();
+    final resultado = db.delete('tb_restaurante1',
+    where: 'cd_restaurante = ?',
+    whereArgs: [r.cd_rest]
+    );
+  }
   static Future <List<Restaurante>> listarTodos()async{
     final db = await DatabaseHelper.getDataBase();
     final resultado = await db.query('tb_restaurante',
