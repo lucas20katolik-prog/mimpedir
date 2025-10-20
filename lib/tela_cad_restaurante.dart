@@ -12,26 +12,26 @@ class TelaCadRestaurante extends StatefulWidget {
 
 class TelaCadRestauranteState extends State<TelaCadRestaurante>{
 
-  final TextEditingController nomeController = TextEditingController();
-  final TextEditingController latitudeController = TextEditingController();
-  final TextEditingController longitudeController = TextEditingController();
-  String? culinariaSelecionada;
-  List<Tipo> tiposCulinaria =[];
-  int? tipoCulinaria;
+    final TextEditingController nomeController = TextEditingController();
+    final TextEditingController latitudeController = TextEditingController();
+    final TextEditingController longitudeController = TextEditingController();
+    String? culinariaSelecionada;
+    List<Tipo> tiposCulinaria =[];
+    int? tipoCulinaria;
 
 
-  void initState(){
-    super.initState();
-    carregarTipos();
-  }
+    void initState(){
+      super.initState();
+      carregarTipos();
+    }
 
 
-  Future<void> carregarTipos() async{
-    final lista = await TipoDAO.listarTipos();
-    setState(() {
-      tiposCulinaria = lista;
-    });
-  }
+    Future<void> carregarTipos() async{
+      final lista = await TipoDAO.listarTipos();
+      setState(() {
+        tiposCulinaria = lista;
+      });
+    }
   @override
   Widget build (BuildContext context){
     return Scaffold(

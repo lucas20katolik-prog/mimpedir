@@ -63,7 +63,31 @@ class TelaHomeState extends State<TelaHome>{
   IconButton(onPressed: (){Navigator.push(context,
   MaterialPageRoute(builder: (context) => EditRestaurante())
   );}, icon: Icon(Icons.edit)),
-  IconButton(onPressed: (){}, icon: Icon(Icons.delete)),
+  IconButton(
+      icon: const Icon(Icons.delete, color: Colors.red),
+  onPressed:(){
+        showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+  title: Text ('ATENÇÃO!'),
+  content: Text("Confirmar exclusão?"),
+  actions: [
+    TextButton(onPressed: (){
+      Navigator.pop(context);
+  }, child: Text("cancelar")),
+  TextButton(onPressed: (){
+    //aqui foi confirmado, pode exluir
+  RestauranteDAO.excluir(r);
+  setState(() {
+  });
+  //fecha o alerta
+  Navigator.pop(context);
+
+  }, child: Text("sim"))
+  ],
+  )
+  );
+  }),
   ],
   ),
   ),
