@@ -16,12 +16,12 @@ class Tipo{
 String? get nome => _nome;
 
   //metodo classico
-  set codigo(int? codigo){
-    _cd_tipo = codigo;
+  set codigo(int? valor){
+    _cd_tipo = valor;
   }
 
   //metodo adaptado para dart
-set nome(String?nome) => _nome = nome;
+set nome(String?valor) => _nome = valor;
 
 
 

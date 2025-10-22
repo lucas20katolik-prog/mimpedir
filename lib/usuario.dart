@@ -27,8 +27,8 @@ class Usuario {
     _login = login;
   }
 
-  set nome (String? nome) => _nome = nome;
-  set senha (String? senha) => _senha = senha;
-  set codigo (int? codigo) => _cd_user = cd_user;
+  set nome (String? valor) => _nome = valor;
+  set senha (String? valor) => _senha = valor;
+  set codigo (int? valor) => _cd_user = valor;
 
 }

@@ -60,9 +60,14 @@ class TelaHomeState extends State<TelaHome>{
   trailing: Row(
   mainAxisSize: MainAxisSize.min,
   children: [
-  IconButton(onPressed: (){Navigator.push(context,
-  MaterialPageRoute(builder: (context) => EditRestaurante())
-  );}, icon: Icon(Icons.edit)),
+  IconButton(
+    icon: const Icon(Icons.edit, color: Colors.blue),
+    onPressed: ()async{
+      //botão editar
+      EditRestaurante.restaurante = await RestauranteDAO.listar(r.cd_rest);
+      Navigator.push(context, MaterialPageRoute(builder: (context)=> EditRestaurante()));
+    },
+  ),
   IconButton(
       icon: const Icon(Icons.delete, color: Colors.red),
   onPressed:(){

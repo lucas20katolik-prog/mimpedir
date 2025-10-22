@@ -21,22 +21,22 @@ String? longitude, Usuario? cd_user, Tipo? cd_tipo}){
 }
 
   String? get nome => _nome;
-  set nome (String? nome) => _nome = nome;
+  set nome (String? valor) => _nome = valor;
 
   int? get cd_rest => _cd_rest;
-  set cd_rest(int? cd_rest) => _cd_rest = cd_rest;
+  set cd_rest(int? valor) => _cd_rest = valor;
 
   String? get latitude => _latitude;
-  set latitude(String? latitude) => _latitude = latitude;
+  set latitude(String? valor) => _latitude = valor;
 
   String? get longitude => _longitude;
-  set longitude (String? latitude) => _longitude = longitude;
+  set longitude (String? valor) => _longitude = valor;
 
   Usuario? get cd_user => _cd_user;
-  set cd_user(Usuario? cd_user) => _cd_user = cd_user;
+  set cd_user(Usuario? valor) => _cd_user = valor;
 
   Tipo? get cd_tipo => _cd_tipo;
-  set cd_tipo (Tipo? cd_tipo) => _cd_tipo = cd_tipo;
+  set cd_tipo (Tipo? valor) => _cd_tipo = valor;
 
 }
 

@@ -24,7 +24,7 @@ class EditRestaurante extends StatefulWidget {
     String? culinariaSelecionada;
     List <Tipo> tiposCulinaria = [];
     int? tipoCulinaria;
-    int? codigo = EditRestaurante.restaurante.cd_rest as int;
+    int? codigo  = EditRestaurante.restaurante.cd_rest;
 
 
     void initState() {
@@ -32,7 +32,10 @@ class EditRestaurante extends StatefulWidget {
       carregarTipos();
       cdController.text = EditRestaurante.restaurante.cd_rest.toString()!;
       nomeController.text = EditRestaurante.restaurante.nome!;
-
+      latitudeController.text =  EditRestaurante.restaurante.latitude!;
+      longitudeController.text = EditRestaurante.restaurante.longitude!;
+      tipoCulinaria = EditRestaurante.restaurante.cd_tipo?.codigo!;
+      culinariaSelecionada =  EditRestaurante.restaurante.cd_tipo?.nome!;
 
     }
 
@@ -58,31 +61,59 @@ class EditRestaurante extends StatefulWidget {
                 SizedBox(height: 30),
                 Text("Código do restaurante"),
                 TextFormField(
-
+                  decoration: InputDecoration(hintText: "Código" ),
+                  validator: (String? value){},
+                  controller: cdController,
+                  enabled: false,
                 ),
+
                 SizedBox(height: 25),
                 TextFormField(
                   decoration: const InputDecoration(
                       hintText: 'Nome do Restaurante'),
+                  validator: (String?value){},
+                  controller: nomeController
                 ),
+
                 SizedBox(height: 25),
-                TextFormField(
-                  decoration: const InputDecoration(
-                      hintText: 'Tipo de Culinária'),
+                DropdownButtonFormField<String>(
+                    value: culinariaSelecionada,
+                    items: tiposCulinaria.map((tipo){
+                      return DropdownMenuItem <String>(
+                          value: tipo.nome,
+                          child: Text ("${tipo.nome}")
+                      );
+                    }).toList(),
+                    onChanged: (String? value) {
+                      setState(() {
+                        culinariaSelecionada = value;
+                        Tipo tipoSelecionado = tiposCulinaria.firstWhere(
+                              (tipo) => tipo.nome == value,
+                        );
+                        tipoCulinaria = tipoSelecionado.codigo;
+                      });
+                    }
                 ),
+
                 SizedBox(height: 25),
                 TextFormField(
                   decoration: const InputDecoration(hintText: 'Longitude'),
+                  validator: (String? value){},
+                  controller: longitudeController,
                 ),
+
                 SizedBox(height: 25),
                 TextFormField(
                   decoration: const InputDecoration(hintText: 'Latitude'),
+                  validator: (String? value){},
+                  controller: latitudeController,
                 ),
                 SizedBox(height: 100),
                 ElevatedButton(onPressed: ()async{
                   final sucesso = await RestauranteDAO.atualizar(cdController.text, nomeController.text, latitudeController.text, longitudeController.text,
                       tipoCulinaria);
                   String msg = 'Foi impossível atualizar. Tente novamente.';
+
                 }, child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

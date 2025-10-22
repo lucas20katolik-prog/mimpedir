@@ -10,14 +10,6 @@ class TelaLogin extends  StatelessWidget{
   final TextEditingController usuarioController = TextEditingController();
   final TextEditingController senhaController = TextEditingController();
 
-  /* Usuario u = Usuario(
-    cd_user: 1,
-    senha: "senhaforte" ,
-    login: "admin",
-      nome: "Administrador"
-
-  );*/
-
 
   @override
   Widget build(BuildContext context) {

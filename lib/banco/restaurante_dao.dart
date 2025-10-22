@@ -6,7 +6,7 @@ import 'package:mimpedir/tipo.dart';
 
 class RestauranteDAO{
 
-  static Future<void> atualizar(int? cd, String? nome, String? lat, String? long, int? tipo) async{
+  static Future<void> atualizar(String? cd, String? nome, String? lat, String? long, int? tipo) async{
     final db = await DatabaseHelper.getDataBase();
     final resultado = await db.update('tb_restaurante',{
       'nm_restaurante': nome,
@@ -31,7 +31,7 @@ class RestauranteDAO{
       nome: resultado.first['nm_restaurante'] as String,
       latitude: resultado.first['latitude_restaurante'] as String,
       longitude: resultado.first['longitude_restaurante'] as String,
-      cd_tipo: await TipoDAO.listar(resultado.first['cd_restaurante']as int) as Tipo
+      cd_tipo: await TipoDAO.listar(resultado.first['cd_tipo']as int) as Tipo
     );
   }
 
