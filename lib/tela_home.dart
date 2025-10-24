@@ -3,6 +3,7 @@ import 'package:mimpedir/banco/restaurante_dao.dart';
 import 'package:mimpedir/edit_restaurante.dart';
 import 'package:mimpedir/tela_cad_restaurante.dart';
 import 'restaurante.dart';
+import 'package:mimpedir/restaurante.dart';
 
 class TelaHome extends StatefulWidget {
   TelaHome({super.key});
@@ -68,9 +69,12 @@ class TelaHomeState extends State<TelaHome>{
       Navigator.push(context, MaterialPageRoute(builder: (context)=> EditRestaurante()));
     },
   ),
+
+
   IconButton(
       icon: const Icon(Icons.delete, color: Colors.red),
   onPressed:(){
+
         showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -83,7 +87,8 @@ class TelaHomeState extends State<TelaHome>{
   TextButton(onPressed: (){
     //aqui foi confirmado, pode exluir
   RestauranteDAO.excluir(r);
-  setState(() {
+  setState((){
+    carregarRestaurantes();
   });
   //fecha o alerta
   Navigator.pop(context);

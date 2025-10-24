@@ -6,7 +6,19 @@ import 'package:mimpedir/tipo.dart';
 
 class RestauranteDAO{
 
-  static Future<void> atualizar(String? cd, String? nome, String? lat, String? long, int? tipo) async{
+  static Future<List<Tipo>>listarTipos()async{
+    final db = await DatabaseHelper.getDataBase();
+    final resultado = await db.query('tb_tipo');
+
+    return resultado.map((mapa){
+    return Tipo(
+      codigo: mapa ['cd_tipo'] as int,
+      nome: mapa ['nm_tipo'] as String
+    );
+    }).toList();
+  }
+
+  static Future atualizar(String? cd, String? nome, String? lat, String? long, int? tipo) async{
     final db = await DatabaseHelper.getDataBase();
     final resultado = await db.update('tb_restaurante',{
       'nm_restaurante': nome,
@@ -15,7 +27,7 @@ class RestauranteDAO{
       'cd_tipo': tipo
     },
     where: 'cd_restaurante = ?',
-    whereArgs: [cd]
+    whereArgs: []
     );
   }
 
@@ -39,7 +51,7 @@ class RestauranteDAO{
 
   static Future<void> excluir(Restaurante r) async{
     final db = await DatabaseHelper.getDataBase();
-    final resultado = db.delete('tb_restaurante1',
+    final resultado = db.delete('tb_restaurante',
     where: 'cd_restaurante = ?',
     whereArgs: [r.cd_rest]
     );
@@ -79,3 +91,4 @@ class RestauranteDAO{
     }
   }
 }
+

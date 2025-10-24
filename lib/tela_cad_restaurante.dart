@@ -78,22 +78,29 @@ class TelaCadRestauranteState extends State<TelaCadRestaurante>{
             validator: (String? value){},
             controller: longitudeController,
           ),
+
+
           SizedBox(height: 50),
           ElevatedButton(onPressed: () async{
             final sucesso = await RestauranteDAO.cadastrarRestaurante(
               nomeController.text, latitudeController.text, longitudeController.text, tipoCulinaria);
+
             String msg = 'Erro: não cadastrado. Verifique os dados.';
             Color corFundo = Colors.red;
 
-            if(sucesso > 0){
-              msg = '"${nomeController.text}" cadastrado com sucesso! ID $sucesso';
+            if(sucesso > 0 ){
+              msg = '"${nomeController.text}"cadastro realizado com sucesso! ID: $sucesso';
               corFundo = Colors.green;
             }
 
-            SnackBar(
-              content: Text(msg),
-              backgroundColor: corFundo,
-              duration: Duration(seconds: 5),
+
+           ScaffoldMessenger.of(context). showSnackBar(
+             SnackBar(
+               content: Text(msg),
+               backgroundColor: corFundo,
+               duration: Duration(seconds: 5),
+           ),
+
             );
 
           }, child: Row(

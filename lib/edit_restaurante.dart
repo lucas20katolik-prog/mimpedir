@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mimpedir/banco/restaurante_dao.dart';
 import 'package:mimpedir/restaurante.dart';
+import 'package:mimpedir/tela_home.dart';
 import 'package:mimpedir/tipo.dart';
 import 'package:mimpedir/banco/tipo_dao.dart';
 
@@ -108,13 +109,31 @@ class EditRestaurante extends StatefulWidget {
                   validator: (String? value){},
                   controller: latitudeController,
                 ),
+
                 SizedBox(height: 100),
                 ElevatedButton(onPressed: ()async{
                   final sucesso = await RestauranteDAO.atualizar(cdController.text, nomeController.text, latitudeController.text, longitudeController.text,
                       tipoCulinaria);
-                  String msg = 'Foi impossível atualizar. Tente novamente.';
 
-                }, child: Row(
+                  String msg = "Erro ao cadastrar.Tente novamente.";
+                  Color corFundo = Colors.red;
+
+                  if(sucesso > 0){
+                    msg = '"${nomeController.text}"cadastro realizado com sucesso! ID: $sucesso';
+                    corFundo = Colors.green;
+                  }
+
+                  ScaffoldMessenger.of(context). showSnackBar(
+                    SnackBar(
+                      content: Text(msg),
+                      backgroundColor: corFundo,
+                      duration: Duration(seconds: 5),
+                    ),
+
+                  );
+
+
+                      }, child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.save),

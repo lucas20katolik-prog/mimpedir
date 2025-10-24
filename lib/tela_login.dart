@@ -29,10 +29,11 @@ class TelaLogin extends  StatelessWidget{
                 obscureText: true,
                 controller: senhaController,
               ),
+
               const SizedBox(height: 40),
               ElevatedButton(onPressed: () async{
 
-                final sucesso = await UsuarioDao.autenticar (usuarioController.text,
+                final sucesso = await UsuarioDao.autenticar(usuarioController.text,
                     senhaController.text);
 
                 if(sucesso){
