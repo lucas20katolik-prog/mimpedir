@@ -25,7 +25,7 @@ class EditRestaurante extends StatefulWidget {
     String? culinariaSelecionada;
     List <Tipo> tiposCulinaria = [];
     int? tipoCulinaria;
-    int? codigo  = EditRestaurante.restaurante.cd_rest;
+    int? codigo  = EditRestaurante.restaurante.cd_rest as int;
 
 
     void initState() {
@@ -49,6 +49,7 @@ class EditRestaurante extends StatefulWidget {
     }
 
 
+@override
     Widget build(BuildContext) {
       return Scaffold(
           appBar: AppBar(title: const Text ("Editar Restaurante")),
@@ -58,6 +59,7 @@ class EditRestaurante extends StatefulWidget {
               children: [
                 SizedBox(),
                 Text("Edite aqui as informações do seu restaurante: "),
+
 
                 SizedBox(height: 30),
                 Text("Código do restaurante"),
@@ -112,24 +114,38 @@ class EditRestaurante extends StatefulWidget {
 
                 SizedBox(height: 100),
                 ElevatedButton(onPressed: ()async{
-                  final sucesso = await RestauranteDAO.atualizar(cdController.text, nomeController.text, latitudeController.text, longitudeController.text,
-                      tipoCulinaria);
+                  final sucesso = await RestauranteDAO.atualizar(cdController.text,nomeController.text,
+                    latitudeController.text,
+                    longitudeController.text, tipoCulinaria);
 
-                  String msg = "Erro ao cadastrar.Tente novamente.";
+                  String msg = 'Erro: não alterado. Verifique os dados.';
                   Color corFundo = Colors.red;
 
-                  if(sucesso > 0){
-                    msg = '"${nomeController.text}"cadastro realizado com sucesso! ID: $sucesso';
+                  if(sucesso >= 1 ){
+                    msg = '"${nomeController.text}"alteração realizada com sucesso! ID: $sucesso';
                     corFundo = Colors.green;
+                    Navigator.pop(context);
                   }
 
-                  ScaffoldMessenger.of(context). showSnackBar(
-                    SnackBar(
-                      content: Text(msg),
-                      backgroundColor: corFundo,
-                      duration: Duration(seconds: 5),
-                    ),
 
+                  ScaffoldMessenger.of(context). showSnackBar(
+                      SnackBar(
+                        content: Text(msg),
+                        backgroundColor: corFundo,
+                        duration: Duration(seconds: 5),
+                      ),
+
+
+                  //mensagem de sucesso anterior
+                  /*if(sucesso >= 1){
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Alterações feitas com sucesso!"))
+                    );
+                  }else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Login ou senha inválidos. Tente novamente."))
+                    );
+                  }*/
                   );
 
 

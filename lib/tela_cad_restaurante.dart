@@ -103,6 +103,8 @@ class TelaCadRestauranteState extends State<TelaCadRestaurante>{
 
             );
 
+            Navigator.pop(context);
+
           }, child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

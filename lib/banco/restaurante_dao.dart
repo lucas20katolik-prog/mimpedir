@@ -18,17 +18,20 @@ class RestauranteDAO{
     }).toList();
   }
 
-  static Future atualizar(String? cd, String? nome, String? lat, String? long, int? tipo) async{
+  static Future <int> atualizar(String? cd, String? nome, String? lat, String? long, int? tipo) async{
     final db = await DatabaseHelper.getDataBase();
     final resultado = await db.update('tb_restaurante',{
       'nm_restaurante': nome,
-      'latitude_restaurante:': lat,
+      'latitude_restaurante': lat,
       'longitude_restaurante': long,
       'cd_tipo': tipo
     },
     where: 'cd_restaurante = ?',
-    whereArgs: []
+    whereArgs: [cd]
     );
+
+    return resultado;
+
   }
 
   static Future<Restaurante> listar(int? cd) async{
@@ -71,7 +74,7 @@ class RestauranteDAO{
     }).toList();
   }
 
-  static Future<int> cadastrarRestaurante(String? nome, String? latitude, String? longitude, int? tipo) async{
+  static Future <int> cadastrarRestaurante(String? nome, String? latitude, String? longitude, int? tipo) async{
     final db = await DatabaseHelper.getDataBase();
 
     final dadosRestaurante = {

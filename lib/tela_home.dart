@@ -24,6 +24,8 @@ class TelaHomeState extends State<TelaHome>{
 
   Future<void>carregarRestaurantes()async{
     final lista = await RestauranteDAO.listarTodos();
+    print("-------------------------------------------------------------------------------");
+
     setState(() {
       restaurantes = lista;
     });
@@ -35,16 +37,11 @@ class TelaHomeState extends State<TelaHome>{
   return Scaffold(
   appBar: AppBar(title: const Text ("Lista de restaurantes"),
   actions: [
-  IconButton(onPressed: (){
+  IconButton(onPressed: ()async{
     final t = Navigator.push(context,
     MaterialPageRoute(builder:(context) => TelaCadRestaurante())
     );
-
-    if(t == false || t == null){
-      setState(() {
-        carregarRestaurantes();
-      });
-    }
+ //
 
   }, icon: Icon(Icons.add))
   ],),
@@ -66,7 +63,12 @@ class TelaHomeState extends State<TelaHome>{
     onPressed: ()async{
       //botão editar
       EditRestaurante.restaurante = await RestauranteDAO.listar(r.cd_rest);
-      Navigator.push(context, MaterialPageRoute(builder: (context)=> EditRestaurante()));
+      final t = await Navigator.push(context, MaterialPageRoute(builder: (context)=> EditRestaurante()));
+
+
+      if(t != null || t != false){
+          carregarRestaurantes();
+      }
     },
   ),
 
@@ -105,10 +107,17 @@ class TelaHomeState extends State<TelaHome>{
   }
   )
   ),
-  floatingActionButton: FloatingActionButton(onPressed: (){
-  Navigator.push(context,
+  floatingActionButton: FloatingActionButton(onPressed: ()async{
+  final t = await Navigator.push(context,
   MaterialPageRoute(builder: (context) => TelaCadRestaurante())
   );
+
+  if(t == false || t == null){
+    setState(() {
+      carregarRestaurantes();
+    });
+  }
+
   },
   child: Icon(Icons.add),
   ),
